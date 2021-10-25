@@ -1,0 +1,1 @@
+function f = document_settlement(DocumentType, company1, officer1, company2, officer2, timestamp)

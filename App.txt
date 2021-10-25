@@ -1,0 +1,83 @@
+Company.Name = "Lukoil";
+Company.Director = "D1";
+Company.Manager = "M1";
+Company.Secretary = "S1";
+Company.Lawer = "L1";
+Buyer = Company;
+sd = "StatutoryDocument_";
+xls_titlerange = 'A1:A5';
+xls_datarange = 'B1:B5';
+CompanyTitleCells = {'Name','Director','Manager','Secretary','Lawer'};
+CompanyDataCells = {
+    char(Company.Name),
+    char(Company.Director),
+    char(Company.Manager),
+    char(Company.Secretary),
+    char(Company.Lawer)
+    };
+
+s = strcat(sd,char(Company.Name),".xlsx");
+xlswrite(s,CompanyTitleCells','Sheet1',xls_titlerange);
+xlswrite(s,CompanyDataCells,'Sheet1',xls_datarange);
+
+BuyerTitleCells = CompanyTitleCells;
+BuyerDataCells = CompanyDataCells;
+
+Company.Name = "KrasnodarskyNPZ";
+Company.Director = "D2";
+Company.Manager = "M2";
+Company.Secretary = "S2";
+Company.Lawer = "L2";
+Seller = Company;
+s = strcat(sd,char(Company.Name),".xlsx");
+CompanyDataCells = {
+    char(Company.Name),
+    char(Company.Director),
+    char(Company.Manager),
+    char(Company.Secretary),
+    char(Company.Lawer)
+    };
+xlswrite(s,CompanyTitleCells','Sheet1',xls_titlerange);
+xlswrite(s,CompanyDataCells,'Sheet1',xls_datarange);
+
+SellerTitleCells = CompanyTitleCells;
+SellerDataCells = CompanyDataCells;
+
+ag = 'Agreement_';
+s = strcat(ag,char(Buyer.Name),'_',char(Seller.Name),".xlsx");
+xlswrite(s,BuyerTitleCells','Buyer',xls_titlerange);
+xlswrite(s,BuyerDataCells,'Buyer',xls_datarange);
+xlswrite(s,SellerTitleCells','Seller',xls_titlerange);
+xlswrite(s,SellerDataCells,'Seller',xls_datarange);
+Agreement.Number = 1;
+Agreement.Date = '25/04/2019';
+Agreement.DeliveryDate = '15/05/2019';
+Agreement.Commodity = 'Fuel Oil M100';
+Agreement.Tonnage = 100;
+AgreementTitleCells = {'Number','Date','DeliveryDate','Commodity','Tonnage'};
+AgreementDataCells = {
+    Agreement.Number,
+    char(Agreement.Date),
+    char(Agreement.DeliveryDate),
+    char(Agreement.Commodity),
+    Agreement.Tonnage
+}
+xlswrite(s,AgreementTitleCells','Agreement',xls_titlerange);
+xlswrite(s,AgreementDataCells,'Agreement',xls_datarange);
+
+setpref('Internet','E_mail','vladislav.agapov@gmail.com');
+setpref('Internet','SMTP_Server','mail.server.network');
+myaddress = 'vladislav.agapov@gmail.com';
+mypassword = 'example';
+setpref('Internet','E_mail',myaddress);
+setpref('Internet','SMTP_Server','smtp.gmail.com');
+setpref('Internet','SMTP_Username',myaddress);
+setpref('Internet','SMTP_Password',mypassword);
+props = java.lang.System.getProperties;
+props.setProperty('mail.smtp.auth','true');
+props.setProperty('mail.smtp.socketFactory.class', ...
+    'javax.net.ssl.SSLSocketFactory');
+props.setProperty('mail.smtp.socketFactory.port','465');
+sendmail('vlad.agapov@gmail.com','email subject test',...
+    'this email is a test')
+

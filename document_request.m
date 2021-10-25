@@ -1,0 +1,1 @@
+function f = document_request(DocumentType, company_from, officer_from, company_to, officer_to, timestamp)

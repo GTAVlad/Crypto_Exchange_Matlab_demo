@@ -1,0 +1,1 @@
+function f = document_verification(DocumentType, company, officer, timestamp)
